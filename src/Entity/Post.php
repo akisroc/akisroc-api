@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  * @ORM\Table(
  *     indexes={
  *         @ORM\Index(columns={"content"}, flags={"fulltext"})
