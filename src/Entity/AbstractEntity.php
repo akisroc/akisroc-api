@@ -17,7 +17,7 @@ abstract class AbstractEntity implements EntityInterface
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid")
      *
-     * @var int|null
+     * @var string|null
      */
     protected $id;
 
@@ -44,17 +44,17 @@ abstract class AbstractEntity implements EntityInterface
     protected $updatedAt;
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param int|null $id
+     * @param string|null $id
      */
-    public function setId(?int $id): void
+    public function setId(?string $id): void
     {
         $this->id = $id;
     }
