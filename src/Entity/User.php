@@ -69,6 +69,10 @@ class User extends AbstractEntity implements UserInterface
      *     pattern="/^[ a-zA-Z0-9éÉèÈêÊëËäÄâÂàÀïÏöÖôÔüÜûÛçÇ']+$/",
      *     message="violation.name.invalid_characters"
      * )
+     * @Assert\Expression(
+     *     "value not in ['me', 'ME', 'Me', 'mE']",
+     *     message="violation.name.not_unique"
+     * )
      * @Assert\Length(
      *     min=1,
      *     max=30,
