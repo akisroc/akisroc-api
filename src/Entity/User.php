@@ -6,12 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity()
+ * @UniqueEntity("username", message="violation.username.not_unique")
+ * @UniqueEntity("email", message="violation.email.not_unique")
+ * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
 class User extends AbstractEntity implements UserInterface
 {
@@ -60,16 +64,16 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
-     * @Assert\NotBlank(message="violation.username.blank")
+     * @Assert\NotBlank(message="violation.name.blank")
      * @Assert\Regex(
      *     pattern="/^[ a-zA-Z0-9éÉèÈêÊëËäÄâÂàÀïÏöÖôÔüÜûÛçÇ']+$/",
-     *     message="violation.username.wrong_format"
+     *     message="violation.name.invalid_characters"
      * )
      * @Assert\Length(
      *     min=1,
      *     max=30,
-     *     minMessage="violation.username.too_short",
-     *     maxMessage="violation.username.too_long"
+     *     minMessage="violation.name.too_short",
+     *     maxMessage="violation.name.too_long"
      * )
      *
      * @var string|null

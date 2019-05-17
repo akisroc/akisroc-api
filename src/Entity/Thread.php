@@ -6,10 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @UniqueEntity("title", message="violation.title.not_unique")
+ * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
 class Thread extends AbstractEntity
 {
@@ -26,7 +29,7 @@ class Thread extends AbstractEntity
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="thread", cascade={"remove"})
      *
-     * @Assert\Count(min=1)
+     * @Assert\Count(min=1, minMessage="violation.thread.no_post")
      *
      * @var Collection
      */

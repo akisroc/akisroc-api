@@ -6,10 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @UniqueEntity("name", message="violation.name.not_unique")
+ * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
 class Protagonist extends AbstractEntity
 {
@@ -36,13 +39,13 @@ class Protagonist extends AbstractEntity
      * @Assert\NotBlank(message="violation.username.blank")
      * @Assert\Regex(
      *     pattern="/^[ a-zA-Z0-9éÉèÈêÊëËäÄâÂàÀïÏöÖôÔüÜûÛçÇ']+$/",
-     *     message="violation.name.wrong_format"
+     *     message="violation.name.invalid_characters"
      * )
      * @Assert\Length(
      *     min=1,
      *     max=30,
-     *     minMessage="violation.username.too_short",
-     *     maxMessage="violation.username.too_long"
+     *     minMessage="violation.name.too_short",
+     *     maxMessage="violation.name.too_long"
      * )
      *
      * @var string|null
