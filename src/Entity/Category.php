@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  * @UniqueEntity("title", message="violation.title.not_unique")
+ * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
 class Category extends AbstractEntity
 {
@@ -78,6 +80,15 @@ class Category extends AbstractEntity
      * @var string|null
      */
     protected $image;
+
+    /**
+     * @ORM\Column(type="string", length=63, nullable=false, unique=true)
+     *
+     * @Gedmo\Slug(fields={"title"})
+     *
+     * @var string|null
+     */
+    protected $slug;
 
     /**
      * Category constructor.
@@ -158,5 +169,21 @@ class Category extends AbstractEntity
     public function setImage(?string $image): void
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     */
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
     }
 }
