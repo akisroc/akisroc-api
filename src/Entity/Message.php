@@ -7,6 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Todo: Cannot send message to self
+ *
  * @ORM\Entity()
  */
 class Message extends AbstractEntity
