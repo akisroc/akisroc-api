@@ -108,6 +108,22 @@ class Category extends AbstractEntity
     }
 
     /**
+     * @return Collection
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    /**
+     * @param Collection $threads
+     */
+    public function setThreads(Collection $threads): void
+    {
+        $this->threads = $threads;
+    }
+
+    /**
      * @return bool
      */
     public function isRolePlay(): bool
