@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Handler\RequestHandler;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,23 +16,27 @@ class UserControler extends AbstractFOSRestController
     /**
      * @Rest\Route("/", name="users.index", methods={"GET"})
      *
-     * @param Request $request
+     * @param Request        $request
+     * @param RequestHandler $handler
      *
      * @return  array|int  Integer if "count" query param is true
      */
-    public function index(Request $request)
+    public function index(Request $request, RequestHandler $handler)
     {
-        $repository = $this->getDoctrine()->getRepository(User::class);
+        return $handler->handleIndexRequest($request, User::class);
+    }
 
-        if ((bool) $request->query->get('count') === true) {
-            return $repository->getCount();
-        }
-
-        return $repository->getList(
-            (string) $request->query->get('order'),
-            (int) $request->query->get('limit'),
-            (int) $request->query->get('offset')
-        );
+    /**
+     * @Rest\Route("/{slug}", name="users.one", methods={"GET"})
+     *
+     * @param string $slug
+     * @param RequestHandler $handler
+     *
+     * @return User|null
+     */
+    public function one(string $slug, RequestHandler $handler): ?User
+    {
+        return $handler->handleOneRequest(User::class, 'slug', $slug);
     }
 
     /**
@@ -42,19 +47,5 @@ class UserControler extends AbstractFOSRestController
     public function me(): ?User
     {
         return $this->getUser();
-    }
-
-    /**
-     * @Rest\Route("/{slug}", name="users.one", methods={"GET"})
-     *
-     * @param string $slug
-     *
-     * @return User|null
-     */
-    public function one(string $slug): ?User
-    {
-        return $this->getDoctrine()->getRepository(User::class)->findOneBy([
-            'slug' => $slug
-        ]);
     }
 }
