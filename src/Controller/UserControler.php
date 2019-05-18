@@ -17,13 +17,20 @@ class UserControler extends AbstractFOSRestController
      *
      * @param Request $request
      *
-     * @return array
+     * @return  array|int  Integer if "count" query param is true
      */
-    public function index(Request $request): array
+    public function index(Request $request)
     {
-        // Todo
-        return $this->getDoctrine()->getRepository(User::class)->findBy(
-            [], [], 100
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        if ((bool) $request->query->get('count') === true) {
+            return $repository->getCount();
+        }
+
+        return $repository->getList(
+            (string) $request->query->get('order'),
+            (int) $request->query->get('limit'),
+            (int) $request->query->get('offset')
         );
     }
 

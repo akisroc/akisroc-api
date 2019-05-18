@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username", message="violation.username.not_unique")
  * @UniqueEntity("email", message="violation.email.not_unique")
  * @UniqueEntity("slug", message="violation.slug.not_unique")
