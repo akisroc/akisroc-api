@@ -4,13 +4,12 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Post;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * Class PostRepository
  * @package App\Repository
  */
-class PostRepository extends EntityRepository
+class PostRepository extends AbstractRepository
 {
     /**
      * @param Post $post
