@@ -17,6 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Post extends AbstractEntity
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Thread", inversedBy="posts", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @var Thread|null
+     */
+    protected $thread;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      *
@@ -48,6 +56,30 @@ class Post extends AbstractEntity
      * @var string|null
      */
     protected $content;
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->content ?: '';
+    }
+
+    /**
+     * @return Thread|null
+     */
+    public function getThread(): ?Thread
+    {
+        return $this->thread;
+    }
+
+    /**
+     * @param Thread|null $thread
+     */
+    public function setThread(?Thread $thread): void
+    {
+        $this->thread = $thread;
+    }
 
     /**
      * @return User|null
