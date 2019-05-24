@@ -9,12 +9,12 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\Route("/users")
+ * @Rest\Route("/")
  */
 class UserControler extends AbstractFOSRestController
 {
     /**
-     * @Rest\Route("/", name="users.index", methods={"GET"})
+     * @Rest\Route("/users", name="users.index", methods={"GET"})
      *
      * @param Request        $request
      * @param RequestHandler $handler
@@ -27,16 +27,20 @@ class UserControler extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Route("/{slug}", name="users.one", methods={"GET"})
+     * @Rest\Route("/users/{slug}", name="users.one", methods={"GET"})
      *
      * @param string $slug
      * @param RequestHandler $handler
      *
-     * @return User|null
+     * @return User
      */
-    public function one(string $slug, RequestHandler $handler): ?User
+    public function one(string $slug, RequestHandler $handler): User
     {
-        return $handler->handleOneRequest(User::class, 'slug', $slug);
+        $user = $handler->handleOneRequest(User::class, 'slug', $slug);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        return $user;
     }
 
     /**
