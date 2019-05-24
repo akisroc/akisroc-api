@@ -4,15 +4,19 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class AbstractEntity
- * @package App\Entity
+ * Todo: Use Groups
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 abstract class AbstractEntity implements EntityInterface
 {
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid")
@@ -22,6 +26,8 @@ abstract class AbstractEntity implements EntityInterface
     protected $id;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="datetime")
      *
      * @Gedmo\Timestampable(on="create")
@@ -33,6 +39,8 @@ abstract class AbstractEntity implements EntityInterface
     protected $createdAt;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="datetime")
      *
      * @Gedmo\Timestampable(on="update")

@@ -11,15 +11,17 @@ use Doctrine\ORM\EntityRepository;
 abstract class AbstractRepository extends EntityRepository
 {
     /**
-     * @param string   $order
+     * @param string $order
      * @param int|null $limit
      * @param int|null $offset
+     * @param array $criteria
      *
      * @return array
      */
     public function getList(string $order = 'DESC',
                             int $limit = null,
-                            int $offset = null
+                            int $offset = null,
+                            array $criteria = []
     ): array {
         $qb = $this->createQueryBuilder('entity');
 
@@ -30,6 +32,16 @@ abstract class AbstractRepository extends EntityRepository
 
         $qb->orderBy('entity.createdAt', $order);
         $qb->addOrderBy('entity.id', $order);
+
+        if (!empty($criteria)) {
+            $i = 0;
+            foreach ($criteria as $field => $value) {
+                $alias = 'c_' . $i++;
+                $qb->andWhere("entity.$field = :$alias");
+                $qb->setParameter($alias, $value);
+            }
+        }
+
 
         return $qb->getQuery()->getResult();
     }

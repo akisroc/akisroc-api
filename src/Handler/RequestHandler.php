@@ -3,6 +3,7 @@
 namespace App\Handler;
 
 use App\Entity\EntityInterface;
+use App\Entity\User;
 use App\Repository\AbstractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +44,8 @@ class RequestHandler
         return $repository->getList(
             (string) $request->query->get('order'),
             (int) $request->query->get('limit'),
-            (int) $request->query->get('offset')
+            (int) $request->query->get('offset'),
+            []
         );
     }
 
@@ -59,5 +61,21 @@ class RequestHandler
         $repository = $this->em->getRepository($class);
 
         return $repository->findOneBy([$field => $value]);
+    }
+
+    /**
+     * @param string $class
+     * @return array
+     */
+    protected function getSelects(string $class): array
+    {
+        $selects = ['id', 'createdAt', 'updatedAt'];
+        switch ($class) {
+            case User::class:
+                $selects = array_merge($selects, ['avatar', 'username', 'email', 'slug', 'enabled']);
+                break;
+        }
+
+        return $selects;
     }
 }
