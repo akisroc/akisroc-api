@@ -6,11 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @Serializer\ExclusionPolicy("all")
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(
  *     indexes={
  *         @ORM\Index(columns={"role_play"})
@@ -30,6 +32,8 @@ class Category extends AbstractEntity
     protected $threads;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="boolean", nullable=false)
      *
      * @var bool
@@ -37,6 +41,8 @@ class Category extends AbstractEntity
     protected $rolePlay;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
      *
      * @Assert\NotBlank(message="violation.description.blank")
@@ -52,6 +58,8 @@ class Category extends AbstractEntity
     protected $title;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="string", length=511, nullable=false)
      *
      * @Assert\NotBlank(message="violation.description.blank")
@@ -67,6 +75,8 @@ class Category extends AbstractEntity
     protected $description;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="string", length=511, nullable=true)
      *
      * @Assert\Url(message="violation.uri.wrong_format")
@@ -82,6 +92,8 @@ class Category extends AbstractEntity
     protected $image;
 
     /**
+     * @Serializer\Expose()
+     *
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
      *
      * @Gedmo\Slug(fields={"title"})
