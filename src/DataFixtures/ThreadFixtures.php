@@ -55,6 +55,7 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
                     : null
                 ;
                 $post = new Post();
+                $post->setThread($thread);
                 $post->setAuthor($author);
                 $post->setProtagonist($protagonist);
                 $post->setContent($faker->text(2000));
