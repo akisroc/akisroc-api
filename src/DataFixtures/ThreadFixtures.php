@@ -31,6 +31,8 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
         $remainingPosts = self::POST_COUNT;
 
         $i = 0;
+        $date = \DateTime::createFromFormat('Ymd', '20180101');
+        $interval = \DateInterval::createFromDateString('1 hour + 3 minutes');
         do {
             /** @var Category $category */
             $category = $this->getReference(
@@ -39,10 +41,11 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
 
             $thread = new Thread();
             $thread->setTitle(
-                $faker->colorName . ' ' . $faker->words(2, true) . ' ' .$faker->month
+                $faker->colorName . ' ' . $faker->words(2, true) . ' ' .$faker->numberBetween(1, 999)
             );
             $thread->setCategory($category);
             for ($j = 0; $j < $faker->numberBetween(1, 33); ++$j) {
+                $date = clone $date->add($interval);
                 /** @var User $author */
                 $author = $this->getReference(
                     'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT)
@@ -59,6 +62,8 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
                 $post->setAuthor($author);
                 $post->setProtagonist($protagonist);
                 $post->setContent($faker->text(2000));
+                $post->setCreatedAt($date);
+                $post->setUpdatedAt($date);
                 $thread->addPost($post);
                 --$remainingPosts;
                 $this->setReference("post_$j", $post);
