@@ -2,7 +2,11 @@
 
 namespace App\Handler;
 
+use App\Entity\Category;
 use App\Entity\EntityInterface;
+use App\Entity\Message;
+use App\Entity\Post;
+use App\Entity\Thread;
 use App\Entity\User;
 use App\Repository\AbstractRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +49,7 @@ class RequestHandler
             (string) $request->query->get('order'),
             (int) $request->query->get('limit'),
             (int) $request->query->get('offset'),
-            []
+            $this->getFilters($class, $request)
         );
     }
 
@@ -64,18 +68,39 @@ class RequestHandler
     }
 
     /**
+     * Todo: Use rights to determine public filters
+     * Todo: Static getFilters() in entities (enforced by EntityInterface)
+     *
      * @param string $class
+     * @param Request $request
+     *
      * @return array
      */
-    protected function getSelects(string $class): array
+    protected function getFilters(string $class, Request $request): array
     {
-        $selects = ['id', 'createdAt', 'updatedAt'];
-        switch ($class) {
-            case User::class:
-                $selects = array_merge($selects, ['avatar', 'username', 'email', 'slug', 'enabled']);
-                break;
-        }
+        $publicFilters = array_merge(
+            ['id'],
+            (function () use ($class): array {
+                switch ($class) {
+                    case Category::class:
+                        return ['rolePlay', 'slug', 'title', 'description'];
+                    case Message::class:
+                        return ['from', 'to'];
+                    case Post::class:
+                        return ['thread', 'author', 'protagonist'];
+                    case Thread::class:
+                        return ['category', 'title', 'slug'];
+                    case User::class:
+                        return ['username', 'slug', 'enabled'];
+                }
+            })()
+        );
 
-        return $selects;
+        return array_filter(
+            $request->query->all(), function (string $key) use ($publicFilters): bool {
+                return in_array($key, $publicFilters, true);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
