@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\ThreadRepository")
  * @UniqueEntity("title", message="violation.title.not_unique")
  * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
