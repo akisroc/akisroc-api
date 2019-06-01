@@ -15,6 +15,8 @@ violation:
     too_long: "Password's length cannot be greater than {{ limit }}."
   category:
     blank: "Category must not be blank."
+  place:
+    blank: "Place must not be blank."
   slug:
     blank: "Slug must not be blank."
     too_short: "Slug's length cannot be less than {{ limit }}."
@@ -41,6 +43,8 @@ violation:
     wrong_format: "Wrong URI format."
   thread:
     no_post: "Thread must contain at least one post."
+  story:
+    no_episode: "Story must contain at least one episode."
   roles:
     wrong_format: "Wrong role format."
     missing_user_role: "Each user must at least have role ROLE_USER."

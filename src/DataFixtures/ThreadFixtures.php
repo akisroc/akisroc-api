@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Post;
-use App\Entity\Protagonist;
 use App\Entity\Thread;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,7 +17,7 @@ use Faker\Factory;
  */
 class ThreadFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const POST_COUNT = 10000;
+    public const POST_COUNT = 500;
 
     /**
      * @param ObjectManager $manager
@@ -50,17 +49,9 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
                 $author = $this->getReference(
                     'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT)
                 );
-                /** @var Protagonist $protagonist */
-                $protagonist = $category->isRolePlay()
-                    ? $this->getReference(
-                        'protagonist_' . $faker->numberBetween(0, ProtagonistFixtures::PROTAGONIST_COUNT - 1)
-                    )
-                    : null
-                ;
                 $post = new Post();
                 $post->setThread($thread);
                 $post->setAuthor($author);
-                $post->setProtagonist($protagonist);
                 $post->setContent($faker->text(2000));
                 $post->setCreatedAt($date);
                 $post->setUpdatedAt($date);

@@ -29,9 +29,12 @@ class RequestParamsListener
         $request = $event->getRequest();
         switch ($request->get('_route')) {
             case 'categories.index':
+            case 'episodes.index':
             case 'messages.index':
+            case 'places.index':
             case 'posts.index':
             case 'protagonists.index':
+            case 'stories.index':
             case 'threads.index':
             case 'users.index':
                 $this->ensureLimit($request);

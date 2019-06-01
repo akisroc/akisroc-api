@@ -13,7 +13,7 @@ use Faker\Factory;
  */
 class CategoryFixtures extends Fixture
 {
-    public const CATEGORY_COUNT = 12;
+    public const CATEGORY_COUNT = 6;
 
     /**
      * @param ObjectManager $manager
@@ -25,7 +25,6 @@ class CategoryFixtures extends Fixture
 
         for ($i = 0; $i < self::CATEGORY_COUNT; ++$i) {
             $category = new Category();
-            $category->setRolePlay($faker->boolean);
             $category->setTitle($faker->unique()->colorName . ' ' . $faker->word);
             $category->setDescription($faker->sentence(9));
             $category->setImage($faker->imageUrl());

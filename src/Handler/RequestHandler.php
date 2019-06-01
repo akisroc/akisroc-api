@@ -4,8 +4,11 @@ namespace App\Handler;
 
 use App\Entity\Category;
 use App\Entity\EntityInterface;
+use App\Entity\Episode;
 use App\Entity\Message;
+use App\Entity\Place;
 use App\Entity\Post;
+use App\Entity\Story;
 use App\Entity\Thread;
 use App\Entity\User;
 use App\Repository\AbstractRepository;
@@ -83,11 +86,17 @@ class RequestHandler
             (function () use ($class): array {
                 switch ($class) {
                     case Category::class:
-                        return ['rolePlay', 'slug', 'title', 'description'];
+                        return ['slug', 'title', 'description'];
+                    case Episode::class:
+                        return ['story', 'protagonist'];
                     case Message::class:
                         return ['from', 'to'];
+                    case Place::class:
+                        return ['slug', 'title', 'description'];
                     case Post::class:
-                        return ['thread', 'author', 'protagonist'];
+                        return ['thread', 'author'];
+                    case Story::class:
+                        return ['place', 'title', 'slug'];
                     case Thread::class:
                         return ['category', 'title', 'slug'];
                     case User::class:

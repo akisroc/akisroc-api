@@ -3,36 +3,33 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EpisodeRepository")
  * @ORM\Table(
  *     indexes={
  *         @ORM\Index(columns={"content"}, flags={"fulltext"})
  *     }
  * )
  */
-class Post extends AbstractEntity
+class Episode extends AbstractEntity
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Thread", inversedBy="posts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Story", inversedBy="episodes", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
-     * @var Thread|null
+     * @var Story|null
      */
-    protected $thread;
+    protected $story;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Protagonist", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=true)
      *
-     * @Gedmo\Blameable(on="create")
-     *
-     * @var User|null
+     * @var Protagonist|null
      */
-    protected $author;
+    protected $protagonist;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -58,35 +55,35 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return Thread|null
+     * @return Story|null
      */
-    public function getThread(): ?Thread
+    public function getStory(): ?Story
     {
-        return $this->thread;
+        return $this->story;
     }
 
     /**
-     * @param Thread|null $thread
+     * @param Story|null $story
      */
-    public function setThread(?Thread $thread): void
+    public function setStory(?Story $story): void
     {
-        $this->thread = $thread;
+        $this->story = $story;
     }
 
     /**
-     * @return User|null
+     * @return Protagonist|null
      */
-    public function getAuthor(): ?User
+    public function getProtagonist(): ?Protagonist
     {
-        return $this->author;
+        return $this->protagonist;
     }
 
     /**
-     * @param User|null $author
+     * @param Protagonist|null $protagonist
      */
-    public function setAuthor(?User $author): void
+    public function setProtagonist(?Protagonist $protagonist): void
     {
-        $this->author = $author;
+        $this->protagonist = $protagonist;
     }
 
     /**

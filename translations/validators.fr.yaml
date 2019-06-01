@@ -15,6 +15,8 @@ violation:
     too_long: "La taille du mot de passe ne peut pas être supérieure à {{ limit }}."
   category:
     blank: "La catégorie ne peut pas être vide."
+  place:
+    blank: "Le lieu ne peut pas être vide."
   slug:
     blank: "Le slug ne peut pas être vide."
     too_short: "La taille du slug ne peut pas être inférieure à {{ limit }}."
@@ -41,6 +43,8 @@ violation:
     wrong_format: "Mauvais format d'URI."
   thread:
     no_post: "Le fil de discussion doit contenir au moins un message."
+  story:
+    no_episode: "Le récit doit contenir au moins un épisode."
   roles:
     wrong_format: "Mauvais format de rôle."
     missing_user_role: "Chaque utilisateur doit au moins posséder le rôle ROLE_USER."

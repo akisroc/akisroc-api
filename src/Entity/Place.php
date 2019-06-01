@@ -12,19 +12,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Serializer\ExclusionPolicy("all")
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
  * @UniqueEntity("title", message="violation.title.not_unique")
  * @UniqueEntity("slug", message="violation.slug.not_unique")
  */
-class Category extends AbstractEntity
+class Place extends AbstractEntity
 {
     /**
-     * @ORM\OneToMany(targetEntity="Thread", mappedBy="category", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Story", mappedBy="Place", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      *
      * @var Collection
      */
-    protected $threads;
+    protected $stories;
 
     /**
      * @Serializer\Expose()
@@ -89,11 +89,11 @@ class Category extends AbstractEntity
     protected $slug;
 
     /**
-     * Category constructor.
+     * Place constructor.
      */
     public function __construct()
     {
-        $this->threads = new ArrayCollection();
+        $this->stories = new ArrayCollection();
     }
 
     /**
@@ -107,25 +107,25 @@ class Category extends AbstractEntity
     /**
      * @return Collection
      */
-    public function getThreads(): Collection
+    public function getStories(): Collection
     {
-        return $this->threads;
+        return $this->stories;
     }
 
     /**
-     * @param Collection $threads
+     * @param Collection $stories
      */
-    public function setThreads(Collection $threads): void
+    public function setStories(Collection $stories): void
     {
-        $this->threads = $threads;
+        $this->stories = $stories;
     }
 
     /**
-     * @param Thread $thread
+     * @param Story $story
      */
-    public function addThread(Thread $thread): void
+    public function addStory(Story $story): void
     {
-        $this->threads->add($thread);
+        $this->stories->add($story);
     }
 
     /**
