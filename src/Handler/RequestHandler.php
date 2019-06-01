@@ -44,15 +44,17 @@ class RequestHandler
         /** @var AbstractRepository $repository */
         $repository = $this->em->getRepository($class);
 
+        $criteria = $this->getFilters($class, $request);
+
         if ((bool) $request->query->get('count') === true) {
-            return $repository->getCount();
+            return $repository->getCount($criteria);
         }
 
         return $repository->getList(
             (string) $request->query->get('order'),
             (int) $request->query->get('limit'),
             (int) $request->query->get('offset'),
-            $this->getFilters($class, $request)
+            $criteria
         );
     }
 

@@ -73,10 +73,19 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @return int
      */
-    public function getCount(): int
+    public function getCount(array $criteria = []): int
     {
         $qb = $this->createQueryBuilder('entity');
         $qb->select($qb->expr()->count('entity'));
+
+        if (!empty($criteria)) {
+            $i = 0;
+            foreach ($criteria as $field => $value) {
+                $alias = 'c_' . $i++;
+                $qb->andWhere("entity.$field = :$alias");
+                $qb->setParameter($alias, $value);
+            }
+        }
 
         return $qb->getQuery()->getSingleScalarResult();
     }
