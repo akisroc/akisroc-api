@@ -96,7 +96,7 @@ class RequestHandler
                     case Place::class:
                         return ['slug', 'title', 'description'];
                     case Post::class:
-                        return ['thread', 'author'];
+                        return ['thread', 'thread.category', 'author'];
                     case Story::class:
                         return ['place', 'title', 'slug'];
                     case Thread::class:

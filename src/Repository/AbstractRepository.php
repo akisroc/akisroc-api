@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\EntityInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class AbstractRepository
@@ -57,15 +59,7 @@ abstract class AbstractRepository extends EntityRepository
         $qb->orderBy('entity.createdAt', $order);
         $qb->addOrderBy('entity.id', $order);
 
-        if (!empty($criteria)) {
-            $i = 0;
-            foreach ($criteria as $field => $value) {
-                $alias = 'c_' . $i++;
-                $qb->andWhere("entity.$field = :$alias");
-                $qb->setParameter($alias, $value);
-            }
-        }
-
+        $this->applyCriteria($qb, $criteria);
 
         return $qb->getQuery()->getResult();
     }
@@ -78,16 +72,44 @@ abstract class AbstractRepository extends EntityRepository
         $qb = $this->createQueryBuilder('entity');
         $qb->select($qb->expr()->count('entity'));
 
+        $this->applyCriteria($qb, $criteria);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Applies an array of filters to given QueryBuilder.
+     *
+     * - Handles simple filters. Example: ['user' => 324]
+     * - Handles inner joins filters. Example: ['user.group' => 22]
+     *
+     * /!\ Note that inner joins only support one level for now.
+     * Something like ['user.group.company' => 54] won't work.
+     *
+     * @param QueryBuilder $qb
+     * @param array $criteria
+     *
+     * @return QueryBuilder
+     */
+    protected function applyCriteria(QueryBuilder $qb, array $criteria): QueryBuilder
+    {
         if (!empty($criteria)) {
             $i = 0;
             foreach ($criteria as $field => $value) {
-                $alias = 'c_' . $i++;
-                $qb->andWhere("entity.$field = :$alias");
+                ++$i;
+                $alias = 'c_' . $i;
+                if (strpos($field, '.') === false) {
+                    $qb->andWhere("entity.$field = :$alias");
+                } else {
+                    $f = explode('.', $field);
+                    $qb->innerJoin("entity.$f[0]", "j_$i");
+                    $qb->andWhere("$f[0].$f[1] = :$alias");
+                }
                 $qb->setParameter($alias, $value);
             }
         }
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return $qb;
     }
 
     /**
@@ -102,14 +124,7 @@ abstract class AbstractRepository extends EntityRepository
 
         $qb->select('entity');
 
-        if (!empty($criteria)) {
-            $i = 0;
-            foreach ($criteria as $field => $value) {
-                $alias = 'c_' . $i++;
-                $qb->andWhere("entity.$field = :$alias");
-                $qb->setParameter($alias, $value);
-            }
-        }
+        $this->applyCriteria($qb, $criteria);
 
         $order = (function () use ($edge) {
             switch ($edge) {
