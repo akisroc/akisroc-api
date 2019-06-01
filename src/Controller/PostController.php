@@ -7,12 +7,21 @@ use App\Entity\Thread;
 use App\Handler\RequestHandler;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Rest\Route("/posts")
  */
 class PostController extends AbstractFOSRestController
 {
+    /**
+     * @Rest\Get("/", name="posts.index")
+     */
+    public function index(Request $request, RequestHandler $handler)
+    {
+        return $handler->handleIndexRequest($request, Post::class);
+    }
+
     /**
      * @Rest\Get("/last/{slug}", name="posts.last")
      *
