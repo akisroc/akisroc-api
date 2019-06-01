@@ -27,7 +27,7 @@ class ProtagonistFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < self::PROTAGONIST_COUNT; ++$i) {
             /** @var User $user */
             $user = $this->getReference(
-                'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT)
+                'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT - 1)
             );
 
             $protagonist = new Protagonist();

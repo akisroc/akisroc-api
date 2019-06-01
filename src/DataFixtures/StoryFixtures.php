@@ -45,7 +45,7 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
             for ($j = 0; $j < $faker->numberBetween(1, 33); ++$j) {
                 $date = clone $date->add($interval);
                 $protagonist = $this->getReference(
-                    'protagonist_' . $faker->numberBetween(0, ProtagonistFixtures::PROTAGONIST_COUNT)
+                    'protagonist_' . $faker->numberBetween(0, ProtagonistFixtures::PROTAGONIST_COUNT - 1)
                 );
                 $episode = new Episode();
                 $episode->setStory($story);

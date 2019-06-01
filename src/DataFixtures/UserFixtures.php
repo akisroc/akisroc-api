@@ -48,6 +48,7 @@ class UserFixtures extends Fixture
             );
             $user->setRoles($users[$i]['roles']);
             $user->setEnabled($faker->boolean(92));
+            $user->setAvatar($faker->imageUrl());
             $this->setReference("user_$i", $user);
 
             $manager->persist($user);
