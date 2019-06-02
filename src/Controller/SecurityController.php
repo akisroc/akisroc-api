@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SecurityController
  * @package App\Controller
  */
-class SecurityController extends AbstractFOSRestController
+class SecurityController extends AbstractController
 {
     /**
-     * @Rest\Route("/login", name="login")
+     * @Route("/login", name="login")
      *
      * @return void
      */

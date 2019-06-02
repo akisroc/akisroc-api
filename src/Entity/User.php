@@ -6,14 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @Serializer\ExclusionPolicy("all")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username", message="violation.username.not_unique")
  * @UniqueEntity("email", message="violation.email.not_unique")
@@ -50,9 +48,6 @@ class User extends AbstractEntity implements UserInterface
     protected $receivedMessages;
 
     /**
-     * @Serializer\Expose()
-     * @Serializer\Groups({"default"})
-     *
      * @ORM\Column(type="string", length=511, nullable=true)
      *
      * @Assert\Url(message="violation.uri.wrong_format")
@@ -68,9 +63,6 @@ class User extends AbstractEntity implements UserInterface
     protected $avatar;
 
     /**
-     * @Serializer\Expose()
-     * @Serializer\Groups({"default"})
-     *
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
      * @Assert\NotBlank(message="violation.name.blank")
      * @Assert\Regex(
@@ -89,8 +81,6 @@ class User extends AbstractEntity implements UserInterface
     protected $username;
 
     /**
-     * @Serializer\Expose()
-     *
      * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      *
      * @Assert\NotBlank(message="violation.email.blank")
@@ -137,9 +127,6 @@ class User extends AbstractEntity implements UserInterface
     protected $roles;
 
     /**
-     * @Serializer\Expose()
-     * @Serializer\Groups({"default"})
-     *
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
      *
      * @Gedmo\Slug(fields={"username"})
@@ -149,9 +136,6 @@ class User extends AbstractEntity implements UserInterface
     protected $slug;
 
     /**
-     * @Serializer\Expose()
-     * @Serializer\Groups({"default"})
-     *
      * @ORM\Column(type="boolean")
      *
      * @var bool
