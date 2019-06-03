@@ -1,4 +1,8 @@
-require('../css/app.css')
+require('../css/app.scss')
+
+require('bulma')
+require('bulma-tooltip')
+
 
 import Vue from 'vue'
 import Salut from './components/Salut'
