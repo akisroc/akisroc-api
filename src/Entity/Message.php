@@ -21,7 +21,7 @@ class Message extends AbstractEntity
      *
      * @var User|null
      */
-    protected $from;
+    protected ?User $from;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="receivedMessages")
@@ -29,7 +29,7 @@ class Message extends AbstractEntity
      *
      * @var User|null
      */
-    protected $to;
+    protected ?User $to;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -44,7 +44,7 @@ class Message extends AbstractEntity
      *
      * @var string|null
      */
-    protected $content;
+    protected ?string $content;
 
     /**
      * @return string

@@ -24,14 +24,14 @@ class Protagonist extends AbstractEntity
      *
      * @var User|null
      */
-    protected $user;
+    protected ?User $user;
 
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="protagonist")
      *
      * @var Collection
      */
-    protected $posts;
+    protected Collection $posts;
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
@@ -50,7 +50,7 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected $name;
+    protected ?string $name;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -59,7 +59,7 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected $slug;
+    protected ?string $slug;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -74,14 +74,14 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected $avatar;
+    protected ?string $avatar;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @var bool
      */
-    protected $anonymous;
+    protected bool $anonymous;
 
     /**
      * Protagonist constructor.

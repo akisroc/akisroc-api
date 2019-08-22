@@ -24,7 +24,7 @@ class Thread extends AbstractEntity
      *
      * @var Category|null
      */
-    protected $category;
+    protected ?Category $category;
 
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="thread", cascade={"remove"})
@@ -33,7 +33,7 @@ class Thread extends AbstractEntity
      *
      * @var Collection
      */
-    protected $posts;
+    protected Collection $posts;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -48,7 +48,7 @@ class Thread extends AbstractEntity
      *
      * @var string|null
      */
-    protected $title;
+    protected ?string $title;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -57,7 +57,7 @@ class Thread extends AbstractEntity
      *
      * @var string|null
      */
-    protected $slug;
+    protected ?string $slug;
 
     /**
      * Thread constructor.

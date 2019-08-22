@@ -24,28 +24,28 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var Collection
      */
-    protected $posts;
+    protected Collection $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="Protagonist", mappedBy="user")
      *
      * @var Collection
      */
-    protected $protagonists;
+    protected Collection $protagonists;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="from")
      *
      * @var Collection
      */
-    protected $sentMessages;
+    protected Collection $sentMessages;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="from")
      *
      * @var Collection
      */
-    protected $receivedMessages;
+    protected Collection $receivedMessages;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -60,7 +60,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected $avatar;
+    protected ?string $avatar;
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
@@ -78,7 +78,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected $username;
+    protected ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false, unique=true)
@@ -88,14 +88,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected $email;
+    protected ?string $email;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=false)
      *
      * @var string|null
      */
-    protected $password;
+    protected ?string $password;
 
     /**
      * @Assert\NotBlank(message="violation.password.blank")
@@ -108,14 +108,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected $plainPassword;
+    protected ?string $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=127, nullable=false)
      *
      * @var string|null
      */
-    protected $salt;
+    protected ?string $salt;
 
     /**
      * @ORM\Column(type="json", length=31, nullable=false)
@@ -124,7 +124,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string[]
      */
-    protected $roles;
+    protected array $roles;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -133,14 +133,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected $slug;
+    protected ?string $slug;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @var bool
      */
-    protected $enabled;
+    protected bool $enabled;
 
     /**
      * User constructor.

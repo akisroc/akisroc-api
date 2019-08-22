@@ -22,7 +22,7 @@ class Post extends AbstractEntity
      *
      * @var Thread|null
      */
-    protected $thread;
+    protected ?Thread $thread;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
@@ -32,7 +32,7 @@ class Post extends AbstractEntity
      *
      * @var User|null
      */
-    protected $author;
+    protected ?User $author;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -47,7 +47,7 @@ class Post extends AbstractEntity
      *
      * @var string|null
      */
-    protected $content;
+    protected ?string $content;
 
     /**
      * @return string

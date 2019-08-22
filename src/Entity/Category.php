@@ -22,7 +22,7 @@ class Category extends AbstractEntity
      *
      * @var Collection
      */
-    protected $threads;
+    protected Collection $threads;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -37,7 +37,7 @@ class Category extends AbstractEntity
      *
      * @var string|null
      */
-    protected $title;
+    protected ?string $title;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=false)
@@ -52,7 +52,7 @@ class Category extends AbstractEntity
      *
      * @var string|null
      */
-    protected $description;
+    protected ?string $description;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -67,7 +67,7 @@ class Category extends AbstractEntity
      *
      * @var string|null
      */
-    protected $image;
+    protected ?string $image;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -76,7 +76,7 @@ class Category extends AbstractEntity
      *
      * @var string|null
      */
-    protected $slug;
+    protected ?string $slug;
 
     /**
      * Category constructor.

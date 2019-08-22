@@ -19,7 +19,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var string|null
      */
-    protected $id;
+    protected ?string $id;
 
     /**
      * @ORM\Column(type="datetime")
@@ -30,7 +30,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var \DateTime|null
      */
-    protected $createdAt;
+    protected ?\DateTime $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,7 +41,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var \DateTime|null
      */
-    protected $updatedAt;
+    protected ?\DateTime $updatedAt;
 
     /**
      * @return string|null

@@ -24,7 +24,7 @@ class Story extends AbstractEntity
      *
      * @var Place|null
      */
-    protected $place;
+    protected ?Place $place;
 
     /**
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="story", cascade={"remove"})
@@ -33,7 +33,7 @@ class Story extends AbstractEntity
      *
      * @var Collection
      */
-    protected $episodes;
+    protected Collection $episodes;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -48,7 +48,7 @@ class Story extends AbstractEntity
      *
      * @var string|null
      */
-    protected $title;
+    protected ?string $title;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -57,7 +57,7 @@ class Story extends AbstractEntity
      *
      * @var string|null
      */
-    protected $slug;
+    protected ?string $slug;
 
     /**
      * Story constructor.

@@ -21,7 +21,7 @@ class Episode extends AbstractEntity
      *
      * @var Story|null
      */
-    protected $story;
+    protected ?Story $story;
 
     /**
      * @ORM\ManyToOne(targetEntity="Protagonist", inversedBy="posts")
@@ -29,7 +29,7 @@ class Episode extends AbstractEntity
      *
      * @var Protagonist|null
      */
-    protected $protagonist;
+    protected ?Protagonist $protagonist;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -44,7 +44,7 @@ class Episode extends AbstractEntity
      *
      * @var string|null
      */
-    protected $content;
+    protected ?string $content;
 
     /**
      * @return string
