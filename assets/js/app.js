@@ -5,9 +5,9 @@ require('bulma-tooltip')
 
 
 import Vue from 'vue'
-import Salut from './components/Salut'
+import PostExcerptCard from './components/PostExcerptCard'
 
 const app = new Vue({
   el: '#app',
-  components: {Salut}
+  components: {PostExcerptCard}
 })

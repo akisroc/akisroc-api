@@ -1,6 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  Homepage
-  <salut></salut>
+  <div>
+    <nav class="board card">
+      <header class="card-header">
+        <h2 class="card-header-title">RP</h2>
+      </header>
+      <div class="card-content">
+        {% for category in categories %}
+          {# Todo #}
+          {% set last_thread = category.threads.last %}
+          {% set last_post = last_thread.posts.last %}
+          <div class="category columns">
+            <a class="category-card card" href="#{{ category.slug }}">
+              <header class="card-header">
+                <h3 class="card-header-title">{{ category.title }}</h3>
+              </header>
+              <p class="card-content is-small">{{ category.description }}</p>
+              <post-excerpt-card authorName="{{ last_post.author.username }}"
+                                 author-img="{{ last_post.author.avatar }}"
+                                 author-href="#"
+                                 post-excerpt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem sit amet, consectetur adipisicing"
+                                 post-href="#" post-date="{{ last_post.createdAt | date }}"
+                                 thread-title="{{ last_thread.title }}"
+                                 thread-href="#"
+              ></post-excerpt-card>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </nav>
+  </div>
 {% endblock %}
