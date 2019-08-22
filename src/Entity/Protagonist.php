@@ -89,6 +89,7 @@ class Protagonist extends AbstractEntity
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->anonymous = true;
     }
 
     /**
