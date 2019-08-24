@@ -33,7 +33,7 @@ class Story extends AbstractEntity
      *
      * @var Collection|null
      */
-    public ?Collection $episodes = null;
+    protected ?Collection $episodes = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -73,5 +73,39 @@ class Story extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->episodes;
+    }
+
+    /**
+     * @param Episode $episode
+     * @return void
+     */
+    public function addEpisode(Episode $episode): void
+    {
+        if (!$this->episodes->contains($episode)) {
+            $this->episodes[] = $episode;
+            $episode->story = $this;
+        }
+    }
+
+    /**
+     * @param Episode $episode
+     * @return void
+     */
+    public function removeEpisode(Episode $episode): void
+    {
+        if ($this->episodes->contains($episode)) {
+            $this->episodes->removeElement($episode);
+            if ($episode->story === $this) {
+                $episode->story = null;
+            }
+        }
     }
 }

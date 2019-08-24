@@ -33,7 +33,7 @@ class Thread extends AbstractEntity
      *
      * @var Collection|Post[]|null
      */
-    public ?Collection $posts = null;
+    protected ?Collection $posts = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -73,5 +73,39 @@ class Thread extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post $post
+     * @return void
+     */
+    public function addPost(Post $post): void
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->thread = $this;
+        }
+    }
+
+    /**
+     * @param Post $post
+     * @return void
+     */
+    public function removePost(Post $post): void
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            if ($post->thread === $this) {
+                $post->thread = null;
+            }
+        }
     }
 }

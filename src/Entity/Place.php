@@ -22,7 +22,7 @@ class Place extends AbstractEntity
      *
      * @var Collection|null
      */
-    public ?Collection $stories = null;
+    protected ?Collection $stories = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -92,5 +92,39 @@ class Place extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    /**
+     * @param Story $story
+     * @return void
+     */
+    public function addStory(Story $story): void
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->place = $this;
+        }
+    }
+
+    /**
+     * @param Story $story
+     * @return void
+     */
+    public function removeStory(Story $story): void
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            if ($story->place === $this) {
+                $story->place = null;
+            }
+        }
     }
 }

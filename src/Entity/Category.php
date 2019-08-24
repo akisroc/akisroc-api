@@ -22,7 +22,7 @@ class Category extends AbstractEntity
      *
      * @var Collection|null
      */
-    public ?Collection $threads = null;
+    protected ?Collection $threads = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -92,5 +92,39 @@ class Category extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    /**
+     * @param Thread $thread
+     * @return void
+     */
+    public function addThread(Thread $thread): void
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads[] = $thread;
+            $thread->category = $this;
+        }
+    }
+
+    /**
+     * @param Thread $thread
+     * @return void
+     */
+    public function removeThread(Thread $thread): void
+    {
+        if ($this->threads->contains($thread)) {
+            $this->threads->removeElement($thread);
+            if ($thread->category === $this) {
+                $thread->category = null;
+            }
+        }
     }
 }

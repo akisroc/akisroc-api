@@ -35,6 +35,16 @@ class Post extends AbstractEntity
     public ?User $author = null;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Protagonist", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=true)
+     *
+     * @Gedmo\Blameable(on="create")
+     *
+     * @var Protagonist|null
+     */
+    public ?Protagonist $protagonist = null;
+
+    /**
      * @ORM\Column(type="text", length=16383, nullable=false)
      *
      * @Assert\NotBlank(message="violation.content.blank")

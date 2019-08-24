@@ -53,7 +53,7 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
                 $episode->content = $faker->text(2000);
                 $episode->createdAt = $date;
                 $episode->updatedAt = $date;
-                $story->episodes->add($episode);
+                $story->addEpisode($episode);
                 --$remainingEpisodes;
                 $this->setReference("episode_$j", $episode);
                 $manager->persist($episode);

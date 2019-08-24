@@ -55,7 +55,7 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
                 $post->content = $faker->text(2000);
                 $post->createdAt = $date;
                 $post->updatedAt = $date;
-                $thread->posts->add($post);
+                $thread->addPost($post);
                 --$remainingPosts;
                 $this->setReference("post_$j", $post);
                 $manager->persist($post);

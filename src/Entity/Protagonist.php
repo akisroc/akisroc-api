@@ -31,7 +31,7 @@ class Protagonist extends AbstractEntity
      *
      * @var Collection|null
      */
-    public ?Collection $posts = null;
+    protected ?Collection $posts = null;
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
@@ -89,5 +89,39 @@ class Protagonist extends AbstractEntity
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post $post
+     * @return void
+     */
+    public function addPost(Post $post): void
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->protagonist = $this;
+        }
+    }
+
+    /**
+     * @param Post $post
+     * @return void
+     */
+    public function removePost(Post $post): void
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            if ($post->protagonist === $this) {
+                $post->protagonist = null;
+            }
+        }
     }
 }
