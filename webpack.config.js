@@ -49,6 +49,10 @@ Encore
         corejs: 3
     })
 
+    .addLoader({
+      test: /\.pug$/,
+      loader: 'pug-plain-loader'
+    })
     .enableSassLoader()
     .enableVueLoader()
 
