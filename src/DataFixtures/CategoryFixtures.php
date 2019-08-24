@@ -25,9 +25,9 @@ class CategoryFixtures extends Fixture
 
         for ($i = 0; $i < self::CATEGORY_COUNT; ++$i) {
             $category = new Category();
-            $category->setTitle($faker->unique()->colorName . ' ' . $faker->word);
-            $category->setDescription($faker->sentence(9));
-            $category->setImage($faker->imageUrl());
+            $category->title = $faker->unique()->colorName . ' ' . $faker->word;
+            $category->description = $faker->sentence(9);
+            $category->image = $faker->imageUrl();
 
             $this->setReference("category_$i", $category);
 

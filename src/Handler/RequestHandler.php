@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestHandler
 {
     /** @var EntityManagerInterface $em */
-    protected $em;
+    protected EntityManagerInterface $em;
 
     /**
      * RequestHandler constructor.

@@ -38,22 +38,22 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $story = new Story();
-            $story->setTitle(
+            $story->title =
                 $faker->colorName . ' ' . $faker->words(2, true) . ' ' . $faker->numberBetween(1, 999)
-            );
-            $story->setPlace($place);
+            ;
+            $story->place = $place;
             for ($j = 0; $j < $faker->numberBetween(1, 33); ++$j) {
                 $date = clone $date->add($interval);
                 $protagonist = $this->getReference(
                     'protagonist_' . $faker->numberBetween(0, ProtagonistFixtures::PROTAGONIST_COUNT - 1)
                 );
                 $episode = new Episode();
-                $episode->setStory($story);
-                $episode->setProtagonist($protagonist);
-                $episode->setContent($faker->text(2000));
-                $episode->setCreatedAt($date);
-                $episode->setUpdatedAt($date);
-                $story->addEpisode($episode);
+                $episode->story = $story;
+                $episode->protagonist = $protagonist;
+                $episode->content = $faker->text(2000);
+                $episode->createdAt = $date;
+                $episode->updatedAt = $date;
+                $story->episodes->add($episode);
                 --$remainingEpisodes;
                 $this->setReference("episode_$j", $episode);
                 $manager->persist($episode);

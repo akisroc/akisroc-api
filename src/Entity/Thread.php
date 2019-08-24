@@ -24,16 +24,16 @@ class Thread extends AbstractEntity
      *
      * @var Category|null
      */
-    protected ?Category $category;
+    public ?Category $category = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="thread", cascade={"remove"})
      *
      * @Assert\Count(min=1, minMessage="violation.thread.no_post")
      *
-     * @var Collection
+     * @var Collection|Post[]|null
      */
-    protected Collection $posts;
+    public ?Collection $posts = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -48,7 +48,7 @@ class Thread extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $title;
+    public ?string $title = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -57,7 +57,7 @@ class Thread extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $slug;
+    public ?string $slug = null;
 
     /**
      * Thread constructor.
@@ -73,77 +73,5 @@ class Thread extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
-    }
-
-    /**
-     * @return Category|null
-     */
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param Category|null $category
-     */
-    public function setCategory(?Category $category): void
-    {
-        $this->category = $category;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    /**
-     * @param Collection $posts
-     */
-    public function setPosts(Collection $posts): void
-    {
-        $this->posts = $posts;
-    }
-
-    /**
-     * @param Post $post
-     */
-    public function addPost(Post $post): void
-    {
-        $this->posts->add($post);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string|null $title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
     }
 }

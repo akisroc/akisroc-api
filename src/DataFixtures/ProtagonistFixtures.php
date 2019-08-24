@@ -31,12 +31,12 @@ class ProtagonistFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $protagonist = new Protagonist();
-            $protagonist->setUser($user);
-            $protagonist->setName(
+            $protagonist->user = $user;
+            $protagonist->name =
                 $faker->firstName . ' ' . $faker->lastName . ' ' . $faker->randomNumber(6)
-            );
-            $protagonist->setAvatar($faker->imageUrl());
-            $protagonist->setAnonymous($faker->boolean);
+            ;
+            $protagonist->avatar = $faker->imageUrl();
+            $protagonist->anonymous = $faker->boolean;
 
             $this->setReference("protagonist_$i", $protagonist);
             $manager->persist($protagonist);

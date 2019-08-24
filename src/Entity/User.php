@@ -22,30 +22,30 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $posts;
+    protected ?Collection $posts = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Protagonist", mappedBy="user")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $protagonists;
+    protected ?Collection $protagonists = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="from")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $sentMessages;
+    protected ?Collection $sentMessages = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="from")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $receivedMessages;
+    protected ?Collection $receivedMessages = null;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -60,7 +60,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected ?string $avatar;
+    public ?string $avatar = null;
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
@@ -78,7 +78,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected ?string $username;
+    public ?string $username = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false, unique=true)
@@ -88,14 +88,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected ?string $email;
+    public ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=false)
      *
      * @var string|null
      */
-    protected ?string $password;
+    public ?string $password = null;
 
     /**
      * @Assert\NotBlank(message="violation.password.blank")
@@ -108,14 +108,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected ?string $plainPassword;
+    public ?string $plainPassword = null;
 
     /**
      * @ORM\Column(type="string", length=127, nullable=false)
      *
      * @var string|null
      */
-    protected ?string $salt;
+    public ?string $salt = null;
 
     /**
      * @ORM\Column(type="json", length=31, nullable=false)
@@ -124,7 +124,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string[]
      */
-    protected array $roles;
+    public array $roles = ['ROLE_USER'];
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -133,14 +133,14 @@ class User extends AbstractEntity implements UserInterface
      *
      * @var string|null
      */
-    protected ?string $slug;
+    public ?string $slug = null;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @var bool
      */
-    protected bool $enabled;
+    public bool $enabled = true;
 
     /**
      * User constructor.
@@ -152,8 +152,6 @@ class User extends AbstractEntity implements UserInterface
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->salt = $this->generateSalt();
-        $this->roles = ['ROLE_USER'];
-        $this->enabled = true;
     }
 
     /**
@@ -173,19 +171,29 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Collection $posts
+     * @param Post $post
+     * @return void
      */
-    public function setPosts(Collection $posts): void
+    public function addPost(Post $post): void
     {
-        $this->posts = $posts;
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->author = $this;
+        }
     }
 
     /**
      * @param Post $post
+     * @return void
      */
-    public function addPost(Post $post): void
+    public function removePost(Post $post): void
     {
-        $this->posts->add($post);
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            if ($post->author === $this) {
+                $post->author = null;
+            }
+        }
     }
 
     /**
@@ -197,19 +205,25 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Collection $protagonists
-     */
-    public function setProtagonists(Collection $protagonists): void
-    {
-        $this->protagonists = $protagonists;
-    }
-
-    /**
      * @param Protagonist $protagonist
+     * @return void
      */
     public function addProtagonist(Protagonist $protagonist): void
     {
-        $this->protagonists->add($protagonist);
+        if (!$this->protagonists->contains($protagonist)) {
+            $this->protagonists[] = $protagonist;
+            $protagonist->user = $this;
+        }
+    }
+
+    public function removeProtagonist(Protagonist $protagonist): void
+    {
+        if ($this->protagonists->contains($protagonist)) {
+            $this->protagonists->removeElement($protagonist);
+            if ($protagonist->user === $this) {
+                $protagonist->user = null;
+            }
+        }
     }
 
     /**
@@ -221,19 +235,29 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Collection $sentMessages
+     * @param Message $sentMessage
+     * @return void
      */
-    public function setSentMessages(Collection $sentMessages): void
+    public function addSentMessage(Message $sentMessage): void
     {
-        $this->sentMessages = $sentMessages;
+        if (!$this->sentMessages->contains($sentMessage)) {
+            $this->sentMessages[] = $sentMessage;
+            $sentMessage->from = $this;
+        }
     }
 
     /**
-     * @param Message $message
+     * @param Message $sentMessage
+     * @return void
      */
-    public function addSentMessage(Message $message): void
+    public function removeSentMessage(Message $sentMessage): void
     {
-        $this->sentMessages->add($message);
+        if ($this->sentMessages->contains($sentMessage)) {
+            $this->sentMessages->removeElement($sentMessage);
+            if ($sentMessage->from === $this) {
+                $sentMessage->from = null;
+            }
+        }
     }
 
     /**
@@ -245,35 +269,29 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Collection $receivedMessages
+     * @param Message $receivedMessage
+     * @return void
      */
-    public function setReceivedMessages(Collection $receivedMessages): void
+    public function addReceivedMessage(Message $receivedMessage): void
     {
-        $this->receivedMessages = $receivedMessages;
+        if (!$this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages[] = $receivedMessage;
+            $receivedMessage->from = $this;
+        }
     }
 
     /**
-     * @param Message $message
+     * @param Message $receivedMessage
+     * @return void
      */
-    public function addReceivedMessage(Message $message): void
+    public function removeReceivedMessage(Message $receivedMessage): void
     {
-        $this->receivedMessages->add($message);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param string|null $avatar
-     */
-    public function setAvatar(?string $avatar): void
-    {
-        $this->avatar = $avatar;
+        if ($this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages->removeElement($receivedMessage);
+            if ($receivedMessage->from === $this) {
+                $receivedMessage->from = null;
+            }
+        }
     }
 
     /**
@@ -285,30 +303,6 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string|null $username
-     */
-    public function setUsername(?string $username): void
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string|null $email
-     */
-    public function setEmail(?string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
      * @return string|null
      */
     public function getPassword(): ?string
@@ -317,43 +311,11 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string|null $password
-     */
-    public function setPassword(?string $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    /**
-     * @param string|null $plainPassword
-     */
-    public function setPlainPassword(?string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
-    /**
      * @return string|null
      */
     public function getSalt(): ?string
     {
         return $this->salt;
-    }
-
-    /**
-     * @param string|null $salt
-     */
-    public function setSalt(?string $salt): void
-    {
-        $this->salt = $salt;
     }
 
     /**
@@ -375,61 +337,11 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string[] $roles
-     */
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
-    }
-
-    /**
-     * @param string $role
-     * @return User
-     */
-    public function addRole(string $role): User
-    {
-        $this->roles[] = $role;
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isAdmin(): bool
     {
         return $this->hasRole('ROLE_ADMIN');
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param bool $enabled
-     */
-    public function setEnabled(bool $enabled): void
-    {
-        $this->enabled = $enabled;
     }
 
     /**

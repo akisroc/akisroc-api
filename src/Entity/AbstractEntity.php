@@ -19,7 +19,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var string|null
      */
-    protected ?string $id;
+    public ?string $id = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -30,7 +30,7 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var \DateTime|null
      */
-    protected ?\DateTime $createdAt;
+    public ?\DateTime $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,53 +41,6 @@ abstract class AbstractEntity implements EntityInterface
      *
      * @var \DateTime|null
      */
-    protected ?\DateTime $updatedAt;
+    public ?\DateTime $updatedAt = null;
 
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string|null $id
-     */
-    public function setId(?string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getCreatedAt(): ?\DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime|null $createdAt
-     */
-    public function setCreatedAt(?\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getUpdatedAt(): ?\DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime|null $updatedAt
-     */
-    public function setUpdatedAt(?\DateTime $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
 }

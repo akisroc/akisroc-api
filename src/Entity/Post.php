@@ -22,7 +22,7 @@ class Post extends AbstractEntity
      *
      * @var Thread|null
      */
-    protected ?Thread $thread;
+    public ?Thread $thread = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
@@ -32,7 +32,7 @@ class Post extends AbstractEntity
      *
      * @var User|null
      */
-    protected ?User $author;
+    public ?User $author = null;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -47,7 +47,7 @@ class Post extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $content;
+    public ?string $content = null;
 
     /**
      * @return string
@@ -55,53 +55,5 @@ class Post extends AbstractEntity
     public function __toString(): string
     {
         return $this->content ?: '';
-    }
-
-    /**
-     * @return Thread|null
-     */
-    public function getThread(): ?Thread
-    {
-        return $this->thread;
-    }
-
-    /**
-     * @param Thread|null $thread
-     */
-    public function setThread(?Thread $thread): void
-    {
-        $this->thread = $thread;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param User|null $author
-     */
-    public function setAuthor(?User $author): void
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param string|null $content
-     */
-    public function setContent(?string $content): void
-    {
-        $this->content = $content;
     }
 }

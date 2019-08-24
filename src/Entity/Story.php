@@ -24,16 +24,16 @@ class Story extends AbstractEntity
      *
      * @var Place|null
      */
-    protected ?Place $place;
+    public ?Place $place = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="story", cascade={"remove"})
      *
      * @Assert\Count(min=1, minMessage="violation.story.no_episode")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $episodes;
+    public ?Collection $episodes = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -48,7 +48,7 @@ class Story extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $title;
+    public ?string $title = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -57,7 +57,7 @@ class Story extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $slug;
+    public ?string $slug = null;
 
     /**
      * Story constructor.
@@ -73,77 +73,5 @@ class Story extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
-    }
-
-    /**
-     * @return Place|null
-     */
-    public function getPlace(): ?Place
-    {
-        return $this->place;
-    }
-
-    /**
-     * @param Place|null $place
-     */
-    public function setPlace(?Place $place): void
-    {
-        $this->place = $place;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getEpisodes(): Collection
-    {
-        return $this->episodes;
-    }
-
-    /**
-     * @param Episode $episode
-     */
-    public function addEpisode(Episode $episode): void
-    {
-        $this->episodes->add($episode);
-    }
-
-    /**
-     * @param Collection $episodes
-     */
-    public function setEpisodes(Collection $episodes): void
-    {
-        $this->episodes = $episodes;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string|null $title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
     }
 }

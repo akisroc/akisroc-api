@@ -24,14 +24,14 @@ class Protagonist extends AbstractEntity
      *
      * @var User|null
      */
-    protected ?User $user;
+    public ?User $user = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="protagonist")
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $posts;
+    public ?Collection $posts = null;
 
     /**
      * @ORM\Column(type="string", length=31, nullable=false, unique=true)
@@ -50,7 +50,7 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -59,7 +59,7 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $slug;
+    public ?string $slug = null;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -74,14 +74,14 @@ class Protagonist extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $avatar;
+    public ?string $avatar = null;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @var bool
      */
-    protected bool $anonymous;
+    public bool $anonymous = true;
 
     /**
      * Protagonist constructor.
@@ -89,110 +89,5 @@ class Protagonist extends AbstractEntity
     public function __construct()
     {
         $this->posts = new ArrayCollection();
-        $this->anonymous = true;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User|null $user
-     */
-    public function setUser(?User $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    /**
-     * @param Collection $posts
-     */
-    public function setPosts(Collection $posts): void
-    {
-        $this->posts = $posts;
-    }
-
-    /**
-     * @param Post $post
-     */
-    public function addPost(Post $post): void
-    {
-        $this->posts->add($post);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string|null $name
-     */
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param string|null $avatar
-     */
-    public function setAvatar(?string $avatar): void
-    {
-        $this->avatar = $avatar;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAnonymous(): bool
-    {
-        return $this->anonymous;
-    }
-
-    /**
-     * @param bool $anonymous
-     */
-    public function setAnonymous(bool $anonymous): void
-    {
-        $this->anonymous = $anonymous;
     }
 }

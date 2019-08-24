@@ -39,10 +39,10 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $thread = new Thread();
-            $thread->setTitle(
+            $thread->title =
                 $faker->colorName . ' ' . $faker->words(2, true) . ' ' .$faker->numberBetween(1, 999)
-            );
-            $thread->setCategory($category);
+            ;
+            $thread->category = $category;
             for ($j = 0; $j < $faker->numberBetween(1, 33); ++$j) {
                 $date = clone $date->add($interval);
                 /** @var User $author */
@@ -50,12 +50,12 @@ class ThreadFixtures extends Fixture implements DependentFixtureInterface
                     'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT)
                 );
                 $post = new Post();
-                $post->setThread($thread);
-                $post->setAuthor($author);
-                $post->setContent($faker->text(2000));
-                $post->setCreatedAt($date);
-                $post->setUpdatedAt($date);
-                $thread->addPost($post);
+                $post->thread = $thread;
+                $post->author = $author;
+                $post->content = $faker->text(2000);
+                $post->createdAt = $date;
+                $post->updatedAt = $date;
+                $thread->posts->add($post);
                 --$remainingPosts;
                 $this->setReference("post_$j", $post);
                 $manager->persist($post);

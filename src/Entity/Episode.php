@@ -21,7 +21,7 @@ class Episode extends AbstractEntity
      *
      * @var Story|null
      */
-    protected ?Story $story;
+    public ?Story $story = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Protagonist", inversedBy="posts")
@@ -29,7 +29,7 @@ class Episode extends AbstractEntity
      *
      * @var Protagonist|null
      */
-    protected ?Protagonist $protagonist;
+    public ?Protagonist $protagonist = null;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -44,7 +44,7 @@ class Episode extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $content;
+    public ?string $content = null;
 
     /**
      * @return string
@@ -52,53 +52,5 @@ class Episode extends AbstractEntity
     public function __toString(): string
     {
         return $this->content ?: '';
-    }
-
-    /**
-     * @return Story|null
-     */
-    public function getStory(): ?Story
-    {
-        return $this->story;
-    }
-
-    /**
-     * @param Story|null $story
-     */
-    public function setStory(?Story $story): void
-    {
-        $this->story = $story;
-    }
-
-    /**
-     * @return Protagonist|null
-     */
-    public function getProtagonist(): ?Protagonist
-    {
-        return $this->protagonist;
-    }
-
-    /**
-     * @param Protagonist|null $protagonist
-     */
-    public function setProtagonist(?Protagonist $protagonist): void
-    {
-        $this->protagonist = $protagonist;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param string|null $content
-     */
-    public function setContent(?string $content): void
-    {
-        $this->content = $content;
     }
 }

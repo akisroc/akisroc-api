@@ -21,7 +21,7 @@ class Message extends AbstractEntity
      *
      * @var User|null
      */
-    protected ?User $from;
+    public ?User $from = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="receivedMessages")
@@ -29,7 +29,7 @@ class Message extends AbstractEntity
      *
      * @var User|null
      */
-    protected ?User $to;
+    public ?User $to = null;
 
     /**
      * @ORM\Column(type="text", length=16383, nullable=false)
@@ -44,7 +44,7 @@ class Message extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $content;
+    public ?string $content = null;
 
     /**
      * @return string
@@ -52,53 +52,5 @@ class Message extends AbstractEntity
     public function __toString(): string
     {
         return $this->content ?: '';
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getFrom(): ?User
-    {
-        return $this->from;
-    }
-
-    /**
-     * @param User|null $from
-     */
-    public function setFrom(?User $from): void
-    {
-        $this->from = $from;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getTo(): ?User
-    {
-        return $this->to;
-    }
-
-    /**
-     * @param User|null $to
-     */
-    public function setTo(?User $to): void
-    {
-        $this->to = $to;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param string|null $content
-     */
-    public function setContent(?string $content): void
-    {
-        $this->content = $content;
     }
 }

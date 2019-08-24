@@ -36,9 +36,9 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
                 'user_' . $faker->numberBetween(0, UserFixtures::USER_COUNT - 1)
             );
             $message = new Message();
-            $message->setFrom($from);
-            $message->setTo($to);
-            $message->setContent($faker->text(400));
+            $message->from = $from;
+            $message->to = $to;
+            $message->content = $faker->text(400);
 
             $this->setReference("message_$i", $message);
             $manager->persist($message);

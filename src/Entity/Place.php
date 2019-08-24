@@ -20,9 +20,9 @@ class Place extends AbstractEntity
      * @ORM\OneToMany(targetEntity="Story", mappedBy="Place", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      *
-     * @var Collection
+     * @var Collection|null
      */
-    protected Collection $stories;
+    public ?Collection $stories = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -37,7 +37,7 @@ class Place extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $title;
+    public ?string $title = null;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=false)
@@ -52,7 +52,7 @@ class Place extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $description;
+    public ?string $description = null;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -67,7 +67,7 @@ class Place extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $image;
+    public ?string $image = null;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=false, unique=true)
@@ -76,7 +76,7 @@ class Place extends AbstractEntity
      *
      * @var string|null
      */
-    protected ?string $slug;
+    public ?string $slug = null;
 
     /**
      * Place constructor.
@@ -92,93 +92,5 @@ class Place extends AbstractEntity
     public function __toString(): string
     {
         return $this->title ?: '';
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getStories(): Collection
-    {
-        return $this->stories;
-    }
-
-    /**
-     * @param Collection $stories
-     */
-    public function setStories(Collection $stories): void
-    {
-        $this->stories = $stories;
-    }
-
-    /**
-     * @param Story $story
-     */
-    public function addStory(Story $story): void
-    {
-        $this->stories->add($story);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string|null $title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string|null $description
-     */
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param string|null $image
-     */
-    public function setImage(?string $image): void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
     }
 }

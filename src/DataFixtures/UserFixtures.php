@@ -41,14 +41,14 @@ class UserFixtures extends Fixture
 
         for ($i = 0, $max = count($users); $i < $max; ++$i) {
             $user = new User();
-            $user->setUsername($users[$i]['username']);
-            $user->setEmail($users[$i]['email']);
-            $user->setPassword(
+            $user->username = $users[$i]['username'];
+            $user->email = $users[$i]['email'];
+            $user->password =
                 $encoder->encodePassword($users[$i]['password'], $user->getSalt())
-            );
-            $user->setRoles($users[$i]['roles']);
-            $user->setEnabled($faker->boolean(92));
-            $user->setAvatar($faker->imageUrl());
+            ;
+            $user->roles = $users[$i]['roles'];
+            $user->enabled = $faker->boolean(92);
+            $user->avatar = $faker->imageUrl();
             $this->setReference("user_$i", $user);
 
             $manager->persist($user);

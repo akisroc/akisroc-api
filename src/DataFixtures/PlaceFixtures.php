@@ -25,9 +25,9 @@ class PlaceFixtures extends Fixture
 
         for ($i = 0; $i < self::PLACE_COUNT; ++$i) {
             $place = new Place();
-            $place->setTitle($faker->unique()->colorName . ' ' . $faker->word);
-            $place->setDescription($faker->sentence(9));
-            $place->setImage($faker->imageUrl());
+            $place->title = $faker->unique()->colorName . ' ' . $faker->word;
+            $place->description = $faker->sentence(9);
+            $place->image = $faker->imageUrl();
 
             $this->setReference("place_$i", $place);
 
