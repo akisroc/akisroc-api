@@ -1,10 +1,10 @@
 security:
   encoders:
     App\Entity\User:
-      algorithm: "argon2i"
-      memory_cost: "%env(ARGON2I_MEMORY_COST)%"
-      time_cost: "%env(ARGON2I_TIME_COST)%"
-      threads: "%env(ARGON2I_THREADS)%"
+      algorithm: "sodium"
+      memory_cost: 4096
+      time_cost: 4
+      threads: 8
   providers:
     main:
       entity: { class: "App\\Entity\\User", property: "username" }
