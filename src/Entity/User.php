@@ -34,7 +34,7 @@ class User extends AbstractEntity implements UserInterface
     protected ?Collection $protagonists = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="from")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="to")
      *
      * @var Collection|null
      */

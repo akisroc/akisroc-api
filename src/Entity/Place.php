@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Place extends AbstractEntity
 {
     /**
-     * @ORM\OneToMany(targetEntity="Story", mappedBy="Place", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Story", mappedBy="place", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      *
      * @var Collection|null

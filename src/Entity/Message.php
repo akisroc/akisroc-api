@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Message extends AbstractEntity
 {
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="sentMessages")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="receivedMessages")
      * @ORM\JoinColumn(nullable=false)
      *
      * @Gedmo\Blameable(on="create")
@@ -24,7 +24,7 @@ class Message extends AbstractEntity
     public ?User $from = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="receivedMessages")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="sentMessages")
      * @ORM\JoinColumn(nullable=false)
      *
      * @var User|null
