@@ -41,7 +41,6 @@
       }
     },
     mounted () {
-      console.log(this.user)
       this.$burgers = Array.prototype.slice.call(
         document.querySelectorAll('.navbar-burger'), 0
       )
