@@ -9,7 +9,7 @@
       <div class="card-content columns">
         {% for place in places %}
           <div class="column place columns">
-            <a class="place-card card" href="#{{ place.slug }}">
+            <a class="place-card card" href="{{ path('place.index', {slug: place.slug}) }}">
               <header class="card-header">
                 <h3 class="card-header-title">{{ place.title }}</h3>
               </header>
