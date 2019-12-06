@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Place;
-use App\Entity\Story;
-use Doctrine\ORM\EntityManagerInterface;
+use App\ViewDataGatherer\PlaceIndexDataGatherer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,39 +21,21 @@ class PlaceController extends AbstractController
      *     defaults={"page"=1}
      * )
      *
-     * @param EntityManagerInterface $em
+     * @param PlaceIndexDataGatherer $dataGatherer
      * @param string $slug
      * @param int $page
      *
      * @return Response
      */
-    public function index(EntityManagerInterface $em, string $slug, int $page): Response
-    {
-        $nbItemsPerPage = 20;
+    public function index(
+        PlaceIndexDataGatherer $dataGatherer,
+        string $slug,
+        int $page
+    ): Response {
 
-        $placeRepository = $em->getRepository(Place::class);
-        $place = $placeRepository->findOneBy(['slug' => $slug]);
-
-        if (!$place) {
-            throw $this->createNotFoundException();
-        }
-
-        $storyRepository = $em->getRepository(Story::class);
-        $stories = $storyRepository->getPaginatedList(
-            $page,
-            $nbItemsPerPage,
-            ['place' => $place],
-            ['createdAt' => 'DESC'],
-            true
+        return $this->render(
+            'place/index.html.twig',
+            $dataGatherer->gatherData($slug, $page, 20)
         );
-
-        return $this->render('place/index.html.twig', [
-            'place' => $place,
-            'stories' => $stories,
-            'pagination' => [
-                'page' => $page,
-                'nbPages' => ceil($stories->count() / $nbItemsPerPage)
-            ]
-        ]);
     }
 }
