@@ -6,7 +6,7 @@
   {% for story in stories %}
     {% set last_episode = story.episodes.last %}
     {% set last_protagonist = last_episode.protagonist %}
-    <a href="#">
+    <a href="{{ path('story.index', { slug: story.slug }) }}">
       <div class="card">
         <div class="card-image">
           <figure class="image is-48x48">

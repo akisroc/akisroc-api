@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <section class="thread story">
+    <h2>{{ story.title }}</h2>
+    {% for episode in episodes %}
+      <article class="post episode">
+        <header class="post-header episode-header">
+          <p>
+            <time datetime="{{ episode.createdAt | date('Y-m-d') }}">
+              {{ episode.createdAt | date('d m Y à H:i:s') }}
+            </time>
+          </p>
+          <p>
+            {{ episode.protagonist.name }}
+          </p>
+        </header>
+        <div class="post-content episode-content">
+          {{ episode.content | nl2br }}
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}
