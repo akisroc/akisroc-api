@@ -10,7 +10,9 @@
   <body>
   <div id="app">
     <navigation :user="{{ app.user | json_encode }}"></navigation>
-    {% block body %}{% endblock %}
+    <main>
+      {% block body %}{% endblock %}
+    </main>
   </div>
     {% block javascripts %}
       {{ encore_entry_script_tags('app') }}

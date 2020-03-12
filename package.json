@@ -19,9 +19,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "bulma": "^0.7.5",
-        "bulma-badge": "^3.0.1",
-        "bulma-tooltip": "^2.0.2",
         "vue": "^2.6.10"
     }
 }

@@ -1,0 +1,11 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(315deg, $color-black 0%, $color-secondary 100%);
+  background-attachment: fixed;
+  font-family: "Libertinus Serif", "Helvetica", "serif";
+}
+
+::selection {
+  background-color: rgba($color-light-primary, 0.4);
+  color: $color-dark-primary;
+}

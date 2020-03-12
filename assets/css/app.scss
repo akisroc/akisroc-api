@@ -1,12 +1,4 @@
-@import "~bulma";
-@import "~bulma-badge";
-@import "~bulma-tooltip";
-
-.board {
-  .card:hover {
-    box-shadow: inset 0 0 10px white;
-  }
-  .board:not(:last-child) {
-    margin-bottom: 5vh;
-  }
-}
+@import "includes/main";
+@import "globals/main";
+@import "layout/main";
+@import "components/main";

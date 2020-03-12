@@ -1,40 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <div>
-    <nav class="board card">
-      <header class="card-header">
-        <h2 class="card-header-title">RP</h2>
-      </header>
-      <div class="card-content columns">
-        {% for place in places %}
-          <div class="column place columns">
-            <a class="place-card card" href="{{ path('place.index', {slug: place.slug}) }}">
-              <header class="card-header">
-                <h3 class="card-header-title">{{ place.title }}</h3>
-              </header>
-              <p class="card-content is-small">{{ place.description }}</p>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    </nav>
-    <nav class="board card">
-      <header class="card-header">
-        <h2>HRP</h2>
-      </header>
-      <div class="card-content columns">
-        {% for category in categories %}
-          <div class="column category columns">
-            <a class="category-card card" href="#{{ category.slug }}">
-              <header class="card-header">
-                <h3 class="card-header-title">{{ category.title }}</h3>
-              </header>
-              <p class="card-content is-small">{{ category.description }}</p>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    </nav>
-  </div>
+  <nav>
+    <header>
+      <h2>RP</h2>
+    </header>
+    <div>
+      {% for place in places %}
+        <a href="{{ path('place.index', { slug: place.slug }) }}">
+          <h3>{{ place.title }}</h3>
+          <p>{{ place.description }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </nav>
+
+  <nav>
+    <header>
+      <h2>RP</h2>
+    </header>
+    <div>
+      {% for category in categories %}
+        <a href="#{{ category.slug }}">
+          <h3>{{ category.title }}</h3>
+          <p>{{ category.description }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </nav>
 {% endblock %}
