@@ -4,7 +4,7 @@
   <section class="thread story">
     <h2>{{ story.title }}</h2>
     {% for episode in episodes %}
-      <article class="post episode">
+      <article id="{{ episode.id }}" class="post episode">
         <header class="post-header episode-header">
           <p>
             <time datetime="{{ episode.createdAt | date('Y-m-d') }}">
