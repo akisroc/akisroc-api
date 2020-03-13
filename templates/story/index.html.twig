@@ -7,8 +7,10 @@
       <article id="{{ episode.id }}" class="post episode">
         <header class="post-header episode-header">
           <p>
-            <time datetime="{{ episode.createdAt | date('Y-m-d') }}">
-              {{ episode.createdAt | date('d m Y à H:i:s') }}
+            <time datetime="{{ episode.createdAt | date('Y-m-d H:i:s') }}">
+              {% trans with { publication_date: episode.createdAt } %}
+                thread.post.created_at
+              {% endtrans %}
             </time>
           </p>
           <p>
