@@ -50,7 +50,13 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
                 $episode = new Episode();
                 $episode->story = $story;
                 $episode->protagonist = $protagonist;
-                $episode->content = $faker->text(2000);
+                $episode->content = (function () use ($faker): string {
+                    $paragraphs = [];
+                    for ($i = 0; $i < $faker->numberBetween(2, 6); ++$i) {
+                        $paragraphs[] = $faker->paragraph($faker->numberBetween(2, 30), true);
+                    }
+                    return implode("\n", $paragraphs);
+                })();
                 $episode->createdAt = $date;
                 $episode->updatedAt = $date;
                 $story->addEpisode($episode);
