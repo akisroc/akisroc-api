@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "vue": "^2.6.10"
+        "vue": "^2.6.10",
+        "vue-markdown": "^2.2.4"
     }
 }
