@@ -92,6 +92,14 @@ class Protagonist extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
      * @return Collection
      */
     public function getPosts(): Collection

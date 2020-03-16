@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
+use App\Entity\Story;
+use App\Form\EpisodeType;
 use App\ViewDataGatherer\StoryIndexDataGatherer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,5 +41,38 @@ class StoryController extends AbstractController
             'story/index.html.twig',
             $dataGatherer->gatherData($slug, $page, 10)
         );
+    }
+
+    /**
+     * @Route(
+     *     "/story/{slug}/add-episode",
+     *     name="story.add_episode"
+     * )
+     *
+     * @param Story $story
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function addEpisode(Story $story, Request $request): Response
+    {
+        $episode = new Episode($story);
+        $form = $this->createForm(EpisodeType::class, $episode);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($episode);
+            $em->flush();
+
+            return $this->redirectToRoute(
+                'story.index',
+                ['slug' => $story->slug]
+            );
+        }
+
+        return $this->render('story/add_episode.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

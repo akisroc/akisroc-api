@@ -47,6 +47,22 @@ class Episode extends AbstractEntity
     public ?string $content = null;
 
     /**
+     * Episode constructor.
+     * @param Story|null $story
+     * @param Protagonist|null $protagonist
+     * @param string|null $content
+     */
+    public function __construct(
+        ?Story $story = null,
+        ?Protagonist $protagonist = null,
+        ?string $content = null
+    ) {
+        $this->story = $story;
+        $this->protagonist = $protagonist;
+        $this->content = $content;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
