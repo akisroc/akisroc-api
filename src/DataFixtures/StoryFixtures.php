@@ -25,6 +25,7 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $faker->addProvider(new \DavidBadura\FakerMarkdownGenerator\FakerProvider($faker));
 
         $remainingEpisodes = self::EPISODE_COUNT;
 
@@ -50,13 +51,14 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
                 $episode = new Episode();
                 $episode->story = $story;
                 $episode->protagonist = $protagonist;
-                $episode->content = (function () use ($faker): string {
-                    $paragraphs = [];
-                    for ($i = 0; $i < $faker->numberBetween(2, 6); ++$i) {
-                        $paragraphs[] = $faker->paragraph($faker->numberBetween(2, 30), true);
-                    }
-                    return implode("\n", $paragraphs);
-                })();
+//                $episode->content = (function () use ($faker): string {
+//                    $paragraphs = [];
+//                    for ($i = 0; $i < $faker->numberBetween(2, 6); ++$i) {
+//                        $paragraphs[] = $faker->paragraph($faker->numberBetween(2, 30), true);
+//                    }
+//                    return implode("\n", $paragraphs);
+//                })();
+                $episode->content = $faker->markdown();
                 $episode->createdAt = $date;
                 $episode->updatedAt = $date;
                 $story->addEpisode($episode);
