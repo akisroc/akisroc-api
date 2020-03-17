@@ -22,8 +22,8 @@
           div.buttons
             a.button.is-light(v-if="user !== null", href="#")
                strong {{ user.username }}
-            a.button.is-dark(v-if="user !== null", href="#") Se déconnecter
-            a.button.is-dark(v-if="user === null", href="#") Se connecter
+            a.button.is-dark(v-if="user !== null", href="/logout") Se déconnecter
+            a.button.is-dark(v-if="user === null", href="/login") Se connecter
 </template>
 
 <script>

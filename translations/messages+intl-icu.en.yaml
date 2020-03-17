@@ -1,3 +1,10 @@
 thread:
   post:
     created_at: "Published on {publication_date, date} at {publication_date, time, short}."
+user:
+  login:
+    form_legend: "Login"
+    form_submit: "Log in"
+    form_password: "Password"
+    form_username: "Username"
+    form_email: "Email address"

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      *
      * @param EntityManagerInterface $em
      *
