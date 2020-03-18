@@ -7,9 +7,19 @@ $color-cream: #F5F3EB;
 $color-black: #020202;
 $color-red: #C20000;
 
+$color-navigation-background: rgba($color-black, 0.8);
+$color-navigation-link: rgba($color-cream, 0.8);
+$color-navigation-link-hover: rgba($color-cream, 1);
+// ________
+
 // Breakpoints
 $breakpoint-mobile: 0px;
 $breakpoint-tablet-portrait: 600px;
 $breakpoint-tablet-landscape: 900px;
 $breakpoint-desktop: 1200px;
 $breakpoint-desktop-large: 1800px;
+// ________
+
+// Layout
+$content-margin-top: 24px;
+// ________

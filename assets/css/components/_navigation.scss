@@ -1,0 +1,58 @@
+#navigation {
+  font-size: 2rem;
+  label[for="menu-toggle"] {
+    font-size: 2.2rem;
+    font-weight: bold;
+    padding: 8px 0;
+    color: $color-navigation-link;
+    cursor: pointer;
+    &:hover {
+      color: $color-navigation-link-hover;
+    }
+  }
+  nav {
+    position: fixed;
+    left: -90%;
+    width: 90%;
+    height: 100vh;
+    background-color: $color-navigation-background;
+    transition: all 0.1s ease-in-out;
+    a {
+      display: block;
+      text-align: center;
+      color: $color-navigation-link;
+      padding: 30px 0;
+      border-bottom: 1px solid $color-navigation-link;
+      &:hover {
+        color: $color-navigation-link-hover;
+        border-bottom: 1px solid $color-navigation-link-hover;
+      }
+    }
+  }
+  #menu-toggle {
+    display: none;
+  }
+  #menu-toggle:checked ~ nav {
+    left: 0;
+  }
+}
+
+@media all and (min-width: $breakpoint-tablet-landscape) {
+  #navigation {
+    label[for="menu-toggle"] {
+      display: none;
+    }
+    nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      height: auto;
+      a {
+        padding: ($content-margin-top / 2) 0;
+      }
+    }
+  }
+}

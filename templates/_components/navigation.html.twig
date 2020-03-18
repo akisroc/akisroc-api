@@ -1,0 +1,11 @@
+{#<navigation :menu="{{ menu.jsonSerialize }}"></navigation>#}
+
+<div id="navigation">
+  <label for="menu-toggle">Menu</label>
+  <input type="checkbox" id="menu-toggle">
+  <nav>
+    {% for node in menu.nodes %}
+      <a href="{{ node.href }}">{{ node.label }}</a>
+    {% endfor %}
+  </nav>
+</div>

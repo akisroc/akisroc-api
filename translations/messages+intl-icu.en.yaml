@@ -8,3 +8,10 @@ user:
     form_password: "Password"
     form_username: "Username"
     form_email: "Email address"
+navigation:
+  homepage: "Homepage"
+  private_messages: "Private messages"
+  management: "Management"
+  logout: "Logout"
+  login: "Login"
+  register: "Register"
