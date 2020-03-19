@@ -49,12 +49,7 @@ Encore
         corejs: 3
     })
 
-    .addLoader({
-      test: /\.pug$/,
-      loader: 'pug-plain-loader'
-    })
     .enableSassLoader()
-    .enableVueLoader()
 
 
     // uncomment to get integrity="..." attributes on your script & link tags

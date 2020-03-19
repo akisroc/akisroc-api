@@ -8,17 +8,15 @@
     {% endblock %}
   </head>
   <body>
-  <div id="app">
-    <header>
-      <h1>Akisroc</h1>
-      {% include '_components/navigation.html.twig' with {
-        menu: getMainMenu()
-      } %}
-    </header>
-    <main>
-      {% block body %}{% endblock %}
-    </main>
-  </div>
+  <header>
+    <h1>Akisroc</h1>
+    {% include '_components/navigation.html.twig' with {
+      menu: getMainMenu()
+    } %}
+  </header>
+  <main>
+    {% block body %}{% endblock %}
+  </main>
     {% block javascripts %}
       {{ encore_entry_script_tags('app') }}
     {% endblock %}

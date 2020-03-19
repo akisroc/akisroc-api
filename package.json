@@ -3,11 +3,7 @@
         "@symfony/webpack-encore": "^0.27.0",
         "core-js": "^3.0.0",
         "node-sass": "^4.12.0",
-        "pug": "^2.0.4",
-        "pug-plain-loader": "^1.0.0",
         "sass-loader": "^7.1.0",
-        "vue-loader": "^15.7.0",
-        "vue-template-compiler": "^2.6.10",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -18,7 +14,5 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {
-        "vue": "^2.6.10"
-    }
+    "dependencies": {}
 }
