@@ -49,6 +49,11 @@ Encore
         corejs: 3
     })
 
+    .addLoader({
+        test: /\.svelte$/,
+        loader: 'svelte-loader'
+    })
+
     .enableSassLoader()
 
 
