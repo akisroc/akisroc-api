@@ -17,9 +17,9 @@
             {{ episode.protagonist.name }}
           </p>
         </header>
-        <vue-markdown class="post-content episode-content">
-          {{ episode.content }}
-        </vue-markdown>
+        <div class="post-content episode-content">
+          {{ episode.content | markdown_to_html }}
+        </div>
       </article>
     {% endfor %}
   </section>
