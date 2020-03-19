@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Entity\Place;
-use Doctrine\ORM\EntityManagerInterface;
+use App\ViewDataGatherer\HomepageDataGatherer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,18 +16,16 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      *
-     * @param EntityManagerInterface $em
+     * @param HomepageDataGatherer $dataGatherer
      *
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function index(EntityManagerInterface $em): Response
+    public function index(HomepageDataGatherer $dataGatherer): Response
     {
-        $categoryRepository = $em->getRepository(Category::class);
-        $placeRepository = $em->getRepository(Place::class);
-
-        return $this->render('homepage.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-            'places' => $placeRepository->findAll()
-        ]);
+        return $this->render(
+            'homepage.html.twig',
+            $dataGatherer->gatherData()
+        );
     }
 }
