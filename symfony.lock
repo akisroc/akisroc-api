@@ -429,5 +429,8 @@
     },
     "twig/twig": {
         "version": "v2.10.0"
+    },
+    "webonyx/graphql-php": {
+        "version": "v0.13.8"
     }
 }

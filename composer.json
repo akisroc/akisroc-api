@@ -27,7 +27,8 @@
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "5.0.*",
         "twig/extra-bundle": "^3.0",
-        "twig/markdown-extra": "^3.0"
+        "twig/markdown-extra": "^3.0",
+        "webonyx/graphql-php": "^0.13.8"
     },
     "config": {
         "preferred-install": {

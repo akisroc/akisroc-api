@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <nav>
+  <nav class="places">
     <header>
       <h2>RP</h2>
     </header>
     <div>
       {% for place in places %}
-        <a href="{{ path('place.index', { slug: place.slug }) }}">
+        <a class="place" href="{{ path('place.index', { slug: place.slug }) }}">
           <h3>{{ place.title }}</h3>
           <p>{{ place.description }}</p>
         </a>
@@ -15,13 +15,13 @@
     </div>
   </nav>
 
-  <nav>
+  <nav class="categories">
     <header>
-      <h2>RP</h2>
+      <h2>HRP</h2>
     </header>
     <div>
       {% for category in categories %}
-        <a href="#{{ category.slug }}">
+        <a class="category" href="#{{ category.slug }}">
           <h3>{{ category.title }}</h3>
           <p>{{ category.description }}</p>
         </a>
